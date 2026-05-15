@@ -3,21 +3,35 @@ import os
 
 st.set_page_config(page_title="AI99 Business Systems", layout="centered")
 
-st.title("🚀 AI99 Business Systems")
-st.subheader("ระบบทดสอบธุรกิจ AI99")
+# state จำลองหน้า
+if "page" not in st.session_state:
+    st.session_state.page = "home"
 
-st.write("ระบบกำลังอยู่ในโหมด Deployment Test")
+# ----------------------
+# หน้า HOME
+# ----------------------
+if st.session_state.page == "home":
 
-# Stripe (safe mode)
-stripe_key = st.secrets.get("SKEY", os.getenv("SKEY"))
+    st.title("🚀 AI99 Business Systems")
+    st.subheader("ระบบทดสอบธุรกิจ AI99")
 
-if stripe_key:
-    st.success("Stripe พร้อมใช้งาน")
-else:
-    st.warning("Stripe ยังไม่ตั้งค่า (Test Mode)")
+    st.markdown("### 💎 Test Product")
 
-st.divider()
-st.markdown("### 💎 Test Product")
+    if st.button("Test Checkout"):
+        st.session_state.page = "checkout"
+        st.rerun()
 
-if st.button("Test Checkout"):
-    st.info("ระบบกำลังจำลองการชำระเงิน (ยังไม่เชื่อม Stripe จริง)")
+# ----------------------
+# หน้า CHECKOUT (จำลอง)
+# ----------------------
+elif st.session_state.page == "checkout":
+
+    st.title("💳 Checkout Page (Mock)")
+
+    st.info("นี่คือหน้าจำลองการชำระเงิน")
+
+    st.write("ระบบกำลังเตรียมเชื่อม Stripe จริง...")
+
+    if st.button("ย้อนกลับ"):
+        st.session_state.page = "home"
+        st.rerun()
