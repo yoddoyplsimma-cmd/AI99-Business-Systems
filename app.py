@@ -3,6 +3,7 @@ import stripe
 
 st.set_page_config(page_title="AI99 Checkout", layout="centered")
 
+# Stripe init (safe)
 stripe.api_key = st.secrets["SKEY"]
 
 st.title("💳 AI99 Checkout System")
@@ -33,7 +34,7 @@ if st.button("Pay Now (Test Mode)"):
         st.session_state.checkout_url = session.url
 
     except Exception as e:
-        st.error(f"Error: {str(e)}")
+        st.error(f"Stripe error: {str(e)}")
 
 if st.session_state.checkout_url:
     st.link_button("👉 ไปหน้าจ่ายเงิน", st.session_state.checkout_url)
