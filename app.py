@@ -1,37 +1,30 @@
 import streamlit as st
-import os
+import stripe
 
-st.set_page_config(page_title="AI99 Business Systems", layout="centered")
+st.set_page_config(page_title="AI99 Checkout", layout="centered")
 
-# state จำลองหน้า
-if "page" not in st.session_state:
-    st.session_state.page = "home"
+stripe.api_key = st.secrets["SKEY"]
 
-# ----------------------
-# หน้า HOME
-# ----------------------
-if st.session_state.page == "home":
+st.title("💳 AI99 Checkout System")
 
-    st.title("🚀 AI99 Business Systems")
-    st.subheader("ระบบทดสอบธุรกิจ AI99")
+if st.button("Pay Now (Test Mode)"):
 
-    st.markdown("### 💎 Test Product")
+    session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        line_items=[{
+            "price_data": {
+                "currency": "usd",
+                "product_data": {
+                    "name": "AI99 Digital Product",
+                },
+                "unit_amount": 999,  # $9.99
+            },
+            "quantity": 1,
+        }],
+        mode="payment",
+        success_url="https://example.com/success",
+        cancel_url="https://example.com/cancel",
+    )
 
-    if st.button("Test Checkout"):
-        st.session_state.page = "checkout"
-        st.rerun()
-
-# ----------------------
-# หน้า CHECKOUT (จำลอง)
-# ----------------------
-elif st.session_state.page == "checkout":
-
-    st.title("💳 Checkout Page (Mock)")
-
-    st.info("นี่คือหน้าจำลองการชำระเงิน")
-
-    st.write("ระบบกำลังเตรียมเชื่อม Stripe จริง...")
-
-    if st.button("ย้อนกลับ"):
-        st.session_state.page = "home"
-        st.rerun()
+    st.write("Redirecting to Stripe...")
+    st.markdown(f"[Click here if not redirected]({session.url})")
