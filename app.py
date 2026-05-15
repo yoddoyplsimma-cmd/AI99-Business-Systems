@@ -12,24 +12,28 @@ if "checkout_url" not in st.session_state:
 
 if st.button("Pay Now (Test Mode)"):
 
-    session = stripe.checkout.Session.create(
-        payment_method_types=["card"],
-        line_items=[{
-            "price_data": {
-                "currency": "usd",
-                "product_data": {
-                    "name": "AI99 Digital Product",
+    try:
+        session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[{
+                "price_data": {
+                    "currency": "usd",
+                    "product_data": {
+                        "name": "AI99 Digital Product",
+                    },
+                    "unit_amount": 999,
                 },
-                "unit_amount": 999,
-            },
-            "quantity": 1,
-        }],
-        mode="payment",
-        success_url="https://example.com/success",
-        cancel_url="https://example.com/cancel",
-    )
+                "quantity": 1,
+            }],
+            mode="payment",
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
+        )
 
-    st.session_state.checkout_url = session.url
+        st.session_state.checkout_url = session.url
+
+    except Exception as e:
+        st.error(f"Error: {str(e)}")
 
 if st.session_state.checkout_url:
-    st.markdown(f"[👉 ไปหน้าจ่ายเงิน]({st.session_state.checkout_url})")
+    st.link_button("👉 ไปหน้าจ่ายเงิน", st.session_state.checkout_url)
