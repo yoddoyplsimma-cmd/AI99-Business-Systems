@@ -17,7 +17,7 @@ if st.button("Pay Now (Test Mode)"):
                 "product_data": {
                     "name": "AI99 Digital Product",
                 },
-                "unit_amount": 999,  # $9.99
+                "unit_amount": 999,
             },
             "quantity": 1,
         }],
@@ -26,5 +26,4 @@ if st.button("Pay Now (Test Mode)"):
         cancel_url="https://example.com/cancel",
     )
 
-    st.write("Redirecting to Stripe...")
-    st.markdown(f"[Click here if not redirected]({session.url})")
+    st.markdown(f"[👉 ไปหน้าจ่ายเงิน]({session.url})")
