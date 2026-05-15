@@ -7,6 +7,9 @@ stripe.api_key = st.secrets["SKEY"]
 
 st.title("💳 AI99 Checkout System")
 
+if "checkout_url" not in st.session_state:
+    st.session_state.checkout_url = None
+
 if st.button("Pay Now (Test Mode)"):
 
     session = stripe.checkout.Session.create(
@@ -26,4 +29,7 @@ if st.button("Pay Now (Test Mode)"):
         cancel_url="https://example.com/cancel",
     )
 
-    st.markdown(f"[👉 ไปหน้าจ่ายเงิน]({session.url})")
+    st.session_state.checkout_url = session.url
+
+if st.session_state.checkout_url:
+    st.markdown(f"[👉 ไปหน้าจ่ายเงิน]({st.session_state.checkout_url})")
