@@ -3,19 +3,32 @@ import stripe
 
 st.set_page_config(page_title="AI99 Checkout System", page_icon="💳", layout="centered")
 
-# 🛠️ ตรวจสอบจุดนี้: พี่ต้องเอาคีย์จริงที่ขึ้นต้นด้วย sk_test_... มาใส่แทนข้อความด้านล่างนี้นะคะ
-# ห้ามระบุภาษาไทยลงในเครื่องหมายคำพูดนี้เด็ดขาดค่ะ
-stripe.api_key = "sk_test_51TUw0KD0F0jpQtDWsxh6txwmyMFrgLo2tjBE8sDQsXyKpqCBHqEt4MBing4oW5dfvbsTobtFJ31yXo6WH7S53P1z001Z8oqVvf"
+# ใส่รหัสลับตรงๆ ลงไปในโค้ดเพื่อทดสอบระบบตามวิธีที่ทำสำเร็จ
+stripe.api_key = "sk_test_YOUR_ACTUAL_SECRET_KEY_HERE"
 
 st.title("💳 AI99 Checkout System")
 st.write("---")
 
+# จัดการสถานะแอปพลิเคชัน (State Handling)
 if "checkout_url" not in st.session_state:
     st.session_state.checkout_url = None
+
+# 🛠️ เพิ่มระบบให้ผู้ซื้อเลือกสกุลเงินที่ต้องการจ่ายได้เอง
+currency_options = {
+    "GBP (£) ปอนด์อังกฤษ": {"code": "gbp", "amount": 16500, "label": "165.00 GBP"},
+    "USD ($) ดอลลาร์สหรัฐ": {"code": "usd", "amount": 21000, "label": "210.00 USD"}, # ราคาใกล้เคียงกันโดยประมาณ
+    "EUR (€) ยูโร": {"code": "eur", "amount": 19500, "label": "195.00 EUR"},       # ราคาใกล้เคียงกันโดยประมาณ
+    "SGD ($) ดอลลาร์สิงคโปร์": {"code": "sgd", "amount": 28000, "label": "280.00 SGD"} # ราคาใกล้เคียงกันโดยประมาณ
+}
+
+selected_label = st.selectbox("🌐 เลือกสกุลเงินที่ต้องการชำระเงิน:", list(currency_options.keys()))
+selected_currency = currency_options[selected_label]
 
 col1, col2 = st.columns(2)
 
 with col1:
+    st.info(f"💰 ยอดเงินที่จะเรียกเก็บ: **{selected_currency['label']}**")
+    
     if st.button("Pay Now (Test Mode)", type="primary", use_container_width=True):
         with st.spinner("กำลังเชื่อมต่อช่องทางชำระเงินที่ปลอดภัย..."):
             try:
@@ -23,12 +36,12 @@ with col1:
                     payment_method_types=["card"],
                     line_items=[{
                         "price_data": {
-                            "currency": "usd",
+                            "currency": selected_currency["code"], # ส่งโค้ดสกุลเงินที่เลือกไปให้ Stripe
                             "product_data": {
                                 "name": "AI99 Digital Product",
-                                "description": "Premium access to AI99 digital services",
+                                "description": f"Premium access - Paid in {selected_currency['code'].upper()}",
                             },
-                            "unit_amount": 999,
+                            "unit_amount": selected_currency["amount"], # ส่งจำนวนเงินในหน่วยย่อย (คูณ 100 แล้ว)
                         },
                         "quantity": 1,
                     }],
