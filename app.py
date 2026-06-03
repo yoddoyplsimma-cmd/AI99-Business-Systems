@@ -5,7 +5,7 @@ st.set_page_config(page_title="AI99 Checkout System", page_icon="💳", layout="
 
 # 🛠️ ตรวจสอบจุดนี้: พี่ต้องเอาคีย์จริงที่ขึ้นต้นด้วย sk_test_... มาใส่แทนข้อความด้านล่างนี้นะคะ
 # ห้ามระบุภาษาไทยลงในเครื่องหมายคำพูดนี้เด็ดขาดค่ะ
-stripe.api_key = "sk_test_YOUR_ACTUAL_SECRET_KEY_HERE"
+stripe.api_key = "sk_test_51TUw0KD0F0jpQtDWsxh6txwmyMFrgLo2tjBE8sDQsXyKpqCBHqEt4MBing4oW5dfvbsTobtFJ31yXo6WH7S53P1z001Z8oqVvf"
 
 st.title("💳 AI99 Checkout System")
 st.write("---")
