@@ -4,7 +4,7 @@ import stripe
 st.set_page_config(page_title="AI99 Checkout System", page_icon="💳", layout="centered")
 
 # ใส่รหัสลับโหมดทดสอบ sk_test_... ของพี่ตรงนี้เหมือนเดิมนะคะ
-stripe.api_key = "sk_test_YOUR_ACTUAL_SECRET_KEY_HERE"
+stripe.api_key = "sk_test_51TUw0KD0F0jpQtDWsxh6txwmyMFrgLo2tjBE8sDQsXyKpqCBHqEt4MBing4oW5dfvbsTobtFJ31yXo6WH7S53P1z001Z8oqVvf"
 
 st.title("💳 AI99 Checkout System")
 st.write("---")
