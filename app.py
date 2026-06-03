@@ -14,10 +14,11 @@ st.write("---")
 if "checkout_url" not in st.session_state:
     st.session_state.checkout_url = None
 
-col1, col2 = st.columns()
+# 🛠️ แก้ไขจุดนี้: ใส่เลข 2 ลงไปในวงเล็บเพื่อให้ระบุจำนวนคอลัมน์อย่างถูกต้องตามเวอร์ชันใหม่
+col1, col2 = st.columns(2)
 
 with col1:
-    # 🛠️ ปรับแก้จุดนี้: บังคับให้ปุ่มสร้างรายการชำระเงินโผล่ขึ้นมาเสมอเพื่อให้พี่กดทดสอบได้
+    # บังคับให้ปุ่มสร้างรายการชำระเงินโผล่ขึ้นมาเสมอเพื่อให้พี่กดทดสอบได้
     if st.button("Pay Now (Test Mode)", type="primary", use_container_width=True):
         with st.spinner("กำลังเชื่อมต่อช่องทางชำระเงินที่ปลอดภัย..."):
             try:
