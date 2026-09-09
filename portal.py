@@ -1,4 +1,5 @@
 import accounting_sandbox
+import retail_sandbox
 import streamlit as st
 import datetime
 
@@ -194,6 +195,8 @@ if st.session_state["checkout_step"] and st.session_state["selected_product"]:
             # ส่งต่อไปยัง Sandbox Engine ที่เลือก
                 if st.session_state['selected_product'] == "Autonomous Accounting & Tax Engine":
                     accounting_sandbox.render_accounting_sandbox()
+                elif st.session_state['selected_product'] == "SME Retail & Node Automation":
+                    retail_sandbox.render_retail_sandbox()    
             
     with col_summary:
         st.markdown("### สรุปคำสั่งซื้อสิทธิ์ประเมิน")
