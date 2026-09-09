@@ -1,3 +1,4 @@
+import accounting_sandbox
 import streamlit as st
 import datetime
 
@@ -191,6 +192,8 @@ if st.session_state["checkout_step"] and st.session_state["selected_product"]:
         if st.button("ชำระเงิน 149.00 SGD & เปิดสิทธิ์ Sandbox ทันที", disabled=not can_pay, type="primary", use_container_width=True):
             st.success(f"ระบบบันทึก Audit Log สัญญา Singapore Legal Pack v1.0 สำเร็จ! กำลังนำทางเข้าสู่ห้องทดลอง {st.session_state['selected_product']}...")
             # ส่งต่อไปยัง Sandbox Engine ที่เลือก
+                if st.session_state['selected_product'] == "Autonomous Accounting & Tax Engine":
+                    accounting_sandbox.render_accounting_sandbox()
             
     with col_summary:
         st.markdown("### สรุปคำสั่งซื้อสิทธิ์ประเมิน")
