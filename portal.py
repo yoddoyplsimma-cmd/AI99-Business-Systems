@@ -190,7 +190,21 @@ if st.session_state["checkout_step"] and st.session_state["selected_product"]:
         st.markdown('</div>', unsafe_allow_html=True)
         
         can_pay = company_name and business_email and check_b2b and check_fee
-        
+
+    # --- ปุ่มกดรับชมคลิปวิดีโอเดโม (Video Demo Modal / Expander) ---
+    with st.expander("🎬 คลิกเพื่อรับชมคลิปวิดีโอสาธิตระบบ (Interactive Demo Preview)"):
+        if st.session_state['selected_product'] == "Autonomous Accounting & Tax Engine":
+            st.caption("วิดีโอสาธิต: ระบบประมวลผล OCR และคำนวณภาษีอัตโนมัติ")
+            st.video("assets/demo_accounting.mp4")
+        elif st.session_state['selected_product'] == "SME Retail & Node Automation":
+            st.caption("วิดีโอสาธิต: การเชื่อมต่อโหนด POS และการตัดสต็อกแบบเรียลไทม์")
+            st.video("assets/demo_retail.mp4")
+        elif st.session_state['selected_product'] == "Banking & Financial-Grade Ledger":
+            st.caption("วิดีโอสาธิต: ระบบรักษาความปลอดภัยธุรกรรมและการเข้ารหัส Ledger")
+            st.video("assets/demo_banking.mp4")
+        elif st.session_state['selected_product'] == "AI Garden Scanner & Design Engine (AI99)":
+            st.caption("วิดีโอสาธิต: ระบบสแกนภาพและคำนวณพื้นที่จัดสวนอัตโนมัติ")
+            st.video("assets/demo_garden.mp4")     
         if st.button("ชำระเงิน 149.00 SGD & เปิดสิทธิ์ Sandbox ทันที", disabled=not can_pay, type="primary", use_container_width=True):
             st.success(f"ระบบบันทึก Audit Log สัญญา Singapore Legal Pack v1.0 สำเร็จ! กำลังนำทางเข้าสู่ห้องทดลอง {st.session_state['selected_product']}...")
             # ส่งต่อไปยัง Sandbox Engine ที่เลือก
