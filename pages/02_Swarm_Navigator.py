@@ -17,7 +17,7 @@ def get_base64_image(image_path):
             return base64.b64encode(img_file.read()).decode()
     return ""
 
-img_base64 = get_base64_image("assets/bg_agent.jpg")
+img_base64 = get_base64_image("pages/bg_agent.jpg")
 
 # กำหนดสไตล์พื้นหลัง (ถ้ามีรูปใช้รูป ถ้าไม่มีใช้ดาร์กโทน)
 bg_style = f"""
