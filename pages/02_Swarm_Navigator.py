@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. Server-Side Master Catalog (ล็อกราคาและเงื่อนไขเวลาอย่างเป็นทางการ)
+# 2. Server-Side Master Catalog (ล็อกราคาและมาตรฐานเวลาสากล)
 TIER_CATALOG = {
     "TIER_1": {
         "code": "TIER_1",
@@ -59,9 +59,9 @@ TIER_CATALOG = {
 }
 
 LEGAL_VERSIONS = {
-    "terms_version": "Terms of Service v1.0",
-    "privacy_version": "Privacy Policy v1.0",
-    "osint_policy_version": "OSINT Compliance Policy v1.0",
+    "terms_version": "Terms v1.0",
+    "privacy_version": "Privacy v1.0",
+    "osint_policy_version": "OSINT Guidelines v1.0",
     "effective_date": "23 September 2026"
 }
 
@@ -103,13 +103,14 @@ st.markdown(f"""
     }}
     
     .order-summary-box {{
-        background: rgba(10, 16, 30, 0.92);
+        background: rgba(10, 16, 30, 0.94);
         border: 1px solid rgba(212, 175, 55, 0.65);
         border-radius: 8px;
         padding: 16px;
         margin-top: 14px;
         margin-bottom: 14px;
         font-size: 13px;
+        line-height: 1.6;
     }}
     
     .gold-title {{
@@ -275,26 +276,26 @@ with col_right:
     st.markdown(f"**{txt['priority_title']}**")
     priority_filter = st.selectbox("Priority:", txt["priority_options"], label_visibility="collapsed")
     
-    # คำนวณ Directive SHA-256 Digest
+    # คำนวณ SHA-256 แบบ Reactive ทันทีตามที่พิมพ์
     directive_clean = directive.strip()
-    directive_hash = hashlib.sha256(directive_clean.encode("utf-8")).hexdigest()[:12] if directive_clean else "NONE"
+    active_hash = hashlib.sha256(directive_clean.encode("utf-8")).hexdigest()[:12] if len(directive_clean) >= 10 else "PENDING_INPUT"
     
-    # กรอบ Order Summary Snapshot ครบถ้วนตามมาตรฐานพี่ยอด
+    # กล่อง Order Summary Snapshot (ล็อกสัญญา ไม่ตัดคำ แสดงครบ 3 Versions)
     st.markdown('<div class="order-summary-box">', unsafe_allow_html=True)
     st.markdown(f"**{txt['summary_title']}**")
     c1, c2 = st.columns(2)
     with c1:
-        st.write(f"**Order ID:** `{st.session_state.order_id}`")
-        st.write(f"**Entity:** {company_name if company_name else '—'}")
-        st.write(f"**Target:** {country}")
-        st.write(f"**Tier Code:** `{selected_tier['code']}` ({selected_tier['quota']})")
+        st.markdown(f"**Order ID:** `{st.session_state.order_id}`")
+        st.markdown(f"**Entity:** {company_name.strip() if company_name.strip() else '—'}")
+        st.markdown(f"**Target:** {country}")
+        st.markdown(f"**Tier Code:** `{selected_tier['code']}` ({selected_tier['quota']})")
     with c2:
-        st.write(f"**Total Quoted:** £{selected_tier['price_gbp']:,.2f} {selected_tier['currency']}")
-        st.write(f"**Priority:** {priority_filter[:25]}...")
-        st.write(f"**Directive Hash:** `{directive_hash}`")
-        st.write(f"**Policies Ref:** `{LEGAL_VERSIONS['terms_version']} | {LEGAL_VERSIONS['effective_date']}`")
+        st.markdown(f"**Total Quoted:** £{selected_tier['price_gbp']:,.2f} {selected_tier['currency']}")
+        st.markdown(f"**Directive Hash:** `{active_hash}`")
+        st.markdown(f"**Policies Ref:** `{LEGAL_VERSIONS['terms_version']} | {LEGAL_VERSIONS['privacy_version']} | {LEGAL_VERSIONS['osint_policy_version']}`")
         
-    st.markdown(f"**Mission Summary (Scope):** *\"{directive_clean if directive_clean else 'Pending client brief...'}\"*")
+    st.markdown(f"**Priority Allocation:** {priority_filter}")
+    st.markdown(f"**Mission Summary (Scope):** *\"{directive_clean if len(directive_clean) >= 10 else 'Pending actionable client brief...'}\"*")
     st.caption(f"⏱️ **Delivery Baseline:** {selected_tier['window_rule']}")
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -326,7 +327,6 @@ with col_right:
     if is_ready:
         st.success("✅ Order parameters verified. Authorization gate unlocked.")
         if st.button(txt["btn_ready"], use_container_width=True):
-            # Immutable Order Record
             immutable_order_record = {
                 "order_id": st.session_state.order_id,
                 "created_at_utc": datetime.utcnow().isoformat(),
