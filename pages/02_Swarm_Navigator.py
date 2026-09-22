@@ -1,46 +1,67 @@
 import streamlit as st
+import base64
+import os
 
 # 1. ตั้งค่าหน้าจอแบบกว้าง (Wide Mode)
 st.set_page_config(
     page_title="AI99 Swarm Navigator | Bespoke Intelligence",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
+# ฟังก์ชันแปลงภาพเป็น Base64 สำหรับทำฉากหลังเต็มจอ
+def get_base64_image(image_path):
+    if os.path.exists(image_path):
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    return ""
+
+img_base64 = get_base64_image("assets/bg_agent.jpg")
+
+# กำหนดสไตล์พื้นหลัง (ถ้ามีรูปใช้รูป ถ้าไม่มีใช้ดาร์กโทน)
+bg_style = f"""
+    background: linear-gradient(rgba(11, 15, 25, 0.4), rgba(11, 15, 25, 0.7)), url("data:image/jpeg;base64,{img_base64}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+""" if img_base64 else "background-color: #0b0f19;"
+
 # 2. ปรับแต่งดีไซน์หรูหรา Kingsman Luxury (Glassmorphism & Gold Accents)
-st.markdown("""
+st.markdown(f"""
 <style>
-    /* ธีมพื้นหลังโทนดาร์กหรูหรา */
-    .stApp {
-        background-color: #0b0f19;
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+    header {{visibility: hidden;}}
+    
+    .stApp {{
+        {bg_style}
         color: #e2e8f0;
-    }
+    }}
     
     /* กล่องคอนโซลฝั่งขวา (Glass Card) */
-    .glass-panel {
-        background: rgba(15, 23, 42, 0.85);
+    .glass-panel {{
+        background: rgba(15, 23, 42, 0.78);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(212, 175, 55, 0.35);
+        border: 1px solid rgba(212, 175, 55, 0.4);
         border-radius: 12px;
         padding: 26px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
         margin-bottom: 20px;
-    }
+    }}
     
-    /* หัวเรื่องสีทอง */
-    .gold-title {
+    .gold-title {{
         color: #d4af37;
         font-family: 'Cinzel', 'Trajan Pro', serif;
         letter-spacing: 1.5px;
         font-size: 24px;
         font-weight: 700;
         margin-bottom: 4px;
-    }
+    }}
     
-    .badge-legal {
-        background: rgba(212, 175, 55, 0.12);
+    .badge-legal {{
+        background: rgba(212, 175, 55, 0.15);
         border: 1px solid #d4af37;
         color: #f1f5f9;
         padding: 6px 12px;
@@ -49,17 +70,15 @@ st.markdown("""
         letter-spacing: 0.5px;
         display: inline-block;
         margin-bottom: 16px;
-    }
+    }}
 </style>
 """, unsafe_allow_html=True)
 
-# 3. จัดสัดส่วนหน้าจอ 2 คอลัมน์ (ซ้ายเว้นโปร่ง / ขวาวางแผงคอนโซล)
-col_left, col_right = st.columns([1, 1.2])
+# 3. จัดสัดส่วนหน้าจอ: ซ้ายเว้นโปร่งโชว์ตัวแบบ / ขวาวางแผงคอนโซลบนผนังมืด
+col_left, col_right = st.columns([1.1, 1.1])
 
 with col_left:
-    st.markdown("### 🌐 AI99 Swarm Global Node")
-    st.caption("Autonomous Deep Research & Public Domain Verification")
-    st.info("ระบบปฏิบัติการ Swarm Autonomous Intelligence พร้อมรับโจทย์ภารกิจเจาะลึกภาคธุรกิจข้ามพรมแดน")
+    st.write("") # ปล่อยโปร่งให้เห็นตัวแบบและโฮโลแกรมเต็มตา
 
 with col_right:
     st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
@@ -90,7 +109,7 @@ with col_right:
     directive = st.text_area(
         "Bespoke Directive (พิมพ์โจทย์ความต้องการธุรกิจของท่านอย่างอิสระ):",
         placeholder="เช่น: ต้องการหาโกดังห้องเย็น ขอเบอร์โทรตรงฝ่ายขาย และประมาณการราคาค่าเช่าต่อตารางเมตร ไม่เอาบริษัทนายหน้า",
-        height=100
+        height=95
     )
     
     # 5. เลือกระดับแพ็กเกจ
@@ -135,12 +154,11 @@ with col_right:
     is_ready = legal_agree_1 and legal_agree_2 and (len(buyer_email.strip()) > 5) and (len(directive.strip()) > 5)
     
     if is_ready:
-        st.success("✅ ระบบตรวจสอบความพร้อมสมบูรณ์: ปลดล็อกช่องทางชำระเงินและปล่อย Swarm แล้ว")
+        st.success("✅ ปลดล็อกระบบชำระเงินเรียบร้อย")
         if st.button("🚀 Authorize Swarm & Pay (ชำระเงินและเริ่มปฏิบัติการ)", use_container_width=True):
             st.info(f"เริ่มการเชื่อมต่อ Secure Checkout สำหรับ: {buyer_email} | กำลังจัดเตรียมคิวขุนศึก...")
     else:
-        st.warning("⚠️ กรุณากรอกอีเมล, ระบุโจทย์ และติ๊กยอมรับข้อตกลงทางกฎหมายครบทั้ง 2 ข้อ เพื่อปลดล็อกปุ่มชำระเงิน")
+        st.warning("⚠️ กรุณากรอกข้อมูลและติ๊กยอมรับข้อตกลงทั้ง 2 ข้อเพื่อปลดล็อก")
         st.button("🔒 Authorize Swarm & Pay (ระบบถูกล็อก)", disabled=True, use_container_width=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
-
