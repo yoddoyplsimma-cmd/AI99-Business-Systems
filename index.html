@@ -1,0 +1,316 @@
+import os
+
+HTML_CONTENT = """<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoddoy Polsimma | AI Solution Architect & Master AI Voice Trainer</title>
+    <meta name="description" content="Official Portfolio & Systems Architecture of Yoddoy Polsimma. Model-Agnostic Architecture, Zero-Typing Automation, Edge-AI Vision, and Modular Accounting Intelligence.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Noto Sans Thai"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#090D16',
+                            card: '#111827',
+                            border: '#1F2937',
+                            blue: '#2563EB',
+                            accent: '#38BDF8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-slate-300 font-sans antialiased selection:bg-brand-blue selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-brand-accent animate-pulse"></span>
+                YBC AI 99 SYSTEM
+            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#solutions" class="hover:text-white transition">Solutions</a>
+                <a href="#projects" class="hover:text-white transition">Projects</a>
+                <a href="#dossier" class="hover:text-white transition">Dossier Engine</a>
+                <a href="#contact" class="hover:text-white transition">Contact</a>
+            </div>
+            <a href="#contact" class="px-5 py-2.5 rounded-lg bg-brand-blue hover:bg-blue-600 text-white text-sm font-semibold transition shadow-lg shadow-blue-500/20">
+                Get in Touch
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-36 pb-20 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-semibold uppercase tracking-wider">
+                    Model-Agnostic Architecture & Operations
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                    Yoddoy Polsimma
+                </h1>
+                <p class="text-lg sm:text-xl font-semibold text-brand-accent">
+                    AI Solution Architect & Master AI Voice Trainer
+                </p>
+                <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl">
+                    Architecting production-ready AI pipelines since 2023. Specializing in voice-directed zero-typing enterprise automation, autonomous edge-vision defense, and high-speed B2B intelligence.
+                </p>
+                <div class="pt-4 flex flex-wrap gap-4">
+                    <a href="https://www.linkedin.com/in/yoddoy-polsimma-078098423/" target="_blank" class="px-6 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition flex items-center gap-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.88 0-1.59-.71-1.59-1.59s.71-1.59 1.59-1.59 1.59.71 1.59 1.59-.71 1.59-1.59 1.59m1.4 9.74V9.97H5.06v8.53h2.8z"/></svg>
+                        Connect on LinkedIn
+                    </a>
+                    <a href="#projects" class="px-6 py-3.5 rounded-xl bg-brand-blue hover:bg-blue-600 text-white font-semibold text-sm transition shadow-lg shadow-blue-500/25">
+                        Explore Systems & Evidence
+                    </a>
+                </div>
+            </div>
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-sm rounded-2xl overflow-hidden border border-slate-800 bg-brand-card shadow-2xl p-2">
+                    <img src="assets/profile.jpg" alt="Yoddoy Polsimma" class="w-full h-auto rounded-xl object-cover">
+                    <div class="p-4 text-center">
+                        <p class="text-xs uppercase tracking-widest text-slate-400 font-semibold">Founder & Architect</p>
+                        <p class="text-sm font-bold text-white mt-0.5">YBC AI 99 System</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 border-t border-brand-border bg-slate-950/40">
+        <div class="max-w-5xl mx-auto px-6 space-y-8">
+            <div class="space-y-3">
+                <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Professional Stance</span>
+                <h2 class="text-3xl font-extrabold text-white">About & Architectural Philosophy</h2>
+            </div>
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card/80 space-y-6 text-slate-300 leading-relaxed">
+                <p>
+                    เส้นทางการทำงานด้าน AI ตั้งแต่ปี 2023 เกิดจากการทดลอง เรียนรู้ ออกแบบ และพัฒนาระบบจากโจทย์การใช้งานจริงอย่างต่อเนื่อง โดยมุ่งเน้นการผสานเทคโนโลยีให้ทำงานได้จริงในระดับ Production สำหรับธุรกิจและองค์กร
+                </p>
+                <div class="p-5 rounded-xl bg-slate-900 border-l-4 border-sky-500 text-slate-200">
+                    <p class="font-medium text-sm sm:text-base leading-relaxed">
+                        บทบาท <strong>“AI Solution Architect”</strong> ไม่ได้ถูกนำมาใช้ในฐานะใบรับรองหรือคุณวุฒิที่ออกโดยผู้ให้บริการ AI แต่เป็นบทบาทวิชาชีพที่สะท้อนจากลักษณะงานจริง และได้รับการประเมินจากระบบ AI หลายแพลตฟอร์ม (AI-assessed professional role) โดยพิจารณาจากขอบเขตงาน วิธีการออกแบบสถาปัตยกรรม การประสาน Foundation Models หลายระบบ และการนำ AI มาประกอบเป็นโซลูชันสำหรับโจทย์การใช้งานจริง
+                    </p>
+                </div>
+                <p>
+                    แนวทางหลักคือการทำงานแบบ <strong>Model-Agnostic Architecture</strong> โดยไม่ยึดติดกับ Foundation Model รายใดรายหนึ่ง แต่เลือกและผสานความสามารถของโมเดลชั้นนำตามจุดแข็ง ข้อจำกัด และหน้าที่ที่เหมาะสมภายในแต่ละระบบ เพื่อความปลอดภัย ความคุ้มค่า และการทำงานที่ต่อเนื่อง
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 max-w-7xl mx-auto px-6">
+        <div class="space-y-3 mb-12">
+            <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Four Core Pillars</span>
+            <h2 class="text-3xl font-extrabold text-white">Production Solutions & Capabilities</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Card 1 -->
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card hover:border-slate-700 transition space-y-4">
+                <div class="w-10 h-10 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center font-bold">01</div>
+                <h3 class="text-xl font-bold text-white">Bespoke B2B Research & OSINT Dossier</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Flash Due Diligence ดึงและสังเคราะห์ข้อมูลเชิงลึก 24–48 ชม. ออกแบบในรูปแบบ <strong>100% White-label</strong> ส่งมอบไฟล์สเปรดชีตวิเคราะห์เสร็จสมบูรณ์ ปลอดภัย ไม่มีแบรนด์กีดขวาง พร้อมนำไปใช้งานระดับผู้บริหาร
+                </p>
+            </div>
+            <!-- Card 2 -->
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card hover:border-slate-700 transition space-y-4">
+                <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold">02</div>
+                <h3 class="text-xl font-bold text-white">Voice-to-Action & Zero-Typing Automation</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    สถาปัตยกรรมการทำงานด้วยเสียง 100% ปลดล็อกคอขวดของการพิมพ์ แปลงข้อความเสียงและบันทึกการประชุมให้กลายเป็นเอกสารทางการและ Action Items ในไฟล์ Word อัตโนมัติอย่างเป็นระบบ
+                </p>
+            </div>
+            <!-- Card 3 -->
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card hover:border-slate-700 transition space-y-4">
+                <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold">03</div>
+                <h3 class="text-xl font-bold text-white">Edge-AI Vision & Perimeter Defense</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    AI99 Edge-Guard ยกระดับโครงสร้าง CCTV เดิมเป็นระบบตรวจจับอัตโนมัติ (เพลิงไหม้ ควัน และการลื่นล้ม) ประมวลผลแบบ Local-First ไม่พึ่งพาระบบคลาวด์ภายนอก พร้อมทริกเกอร์แจ้งเตือน LINE ทันที
+                </p>
+            </div>
+            <!-- Card 4 -->
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card hover:border-slate-700 transition space-y-4">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">04</div>
+                <h3 class="text-xl font-bold text-white">Modular Accounting & Document Intelligence</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    ระบบสแกนเอกสารและภาษี 2 สเกล: จัดการสลิปความร้อน POS ค้าปลีก และการกระทบยอดบิลวัสดุก่อสร้าง/จัดซื้อขนาดใหญ่ ด้วย Deterministic Tax Engine ป้องกันความคลาดเคลื่อนทางตัวเลข
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 border-t border-brand-border bg-slate-950/40">
+        <div class="max-w-7xl mx-auto px-6 space-y-12">
+            <div class="space-y-3">
+                <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Verified Deployments</span>
+                <h2 class="text-3xl font-extrabold text-white">Visual Evidence & Proof of Concept</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- CCTV Demo -->
+                <div class="rounded-2xl border border-slate-800 bg-brand-card overflow-hidden">
+                    <img src="assets/demo-cctv.jpg" alt="Edge CCTV Alert" class="w-full h-48 object-cover">
+                    <div class="p-6 space-y-2">
+                        <span class="text-xs font-semibold text-rose-400 uppercase">Computer Vision</span>
+                        <h4 class="text-lg font-bold text-white">Industrial Hazard & Fall Detection</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            ระบบประมวลผลกล้องคลังสินค้า ตรวจจับเพลิงไหม้และอุบัติเหตุคนล้ม พร้อมเชื่อมโยงคำสั่งแจ้งเตือน LINE Alert ทันที
+                        </p>
+                    </div>
+                </div>
+                <!-- Voice Assistant -->
+                <div class="rounded-2xl border border-slate-800 bg-brand-card overflow-hidden">
+                    <img src="assets/demo-voice.jpg" alt="Voice Assistant" class="w-full h-48 object-cover">
+                    <div class="p-6 space-y-2">
+                        <span class="text-xs font-semibold text-sky-400 uppercase">Voice Automation</span>
+                        <h4 class="text-lg font-bold text-white">Executive Voice Assistant</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            ระบบรับคำสั่งเสียงผู้บริหาร แปลงการสั่งการประชุมเป็นรายงานทางการและโครงสร้างตรรกะแบบไม่ต้องสัมผัสคีย์บอร์ด
+                        </p>
+                    </div>
+                </div>
+                <!-- AI Concierge -->
+                <div class="rounded-2xl border border-slate-800 bg-brand-card overflow-hidden">
+                    <img src="assets/demo-concierge.jpg" alt="AI Concierge" class="w-full h-48 object-cover">
+                    <div class="p-6 space-y-2">
+                        <span class="text-xs font-semibold text-emerald-400 uppercase">Multimodal Kiosk</span>
+                        <h4 class="text-lg font-bold text-white">AI Concierge & Receptionist</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            ผู้ช่วยต้อนรับเสมือนจริงประจำล็อบบี้และอาคารสำนักงาน ให้ข้อมูลนำทางและประสานงานผู้บริหารแบบอินเทอร์แอ็กทีฟ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dossier Data Preview Section -->
+    <section id="dossier" class="py-20 max-w-7xl mx-auto px-6">
+        <div class="space-y-4 mb-8">
+            <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Production Deliverable Preview</span>
+            <h2 class="text-3xl font-extrabold text-white">Due Diligence Dossier Schema</h2>
+            <p class="text-slate-400 text-sm max-w-2xl">
+                ตัวอย่างโครงสร้างข้อมูลจริงจากการสังเคราะห์ด้วย Swarm ADRA Architecture จัดระเบียบเป็นไฟล์สเปรดชีตพร้อมตรวจสอบแหล่งที่มาทางการ
+            </p>
+        </div>
+        <div class="border border-slate-800 rounded-2xl overflow-hidden bg-brand-card">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-900 border-b border-slate-800 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="py-4 px-6">Section</th>
+                            <th class="py-4 px-6">Metric / Parameter</th>
+                            <th class="py-4 px-6">Synthesized Finding</th>
+                            <th class="py-4 px-6">Verification Source</th>
+                            <th class="py-4 px-6">Integrity Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800 text-slate-300">
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-4 px-6 font-semibold text-white">Executive Summary</td>
+                            <td class="py-4 px-6">Corporate Risk Rating</td>
+                            <td class="py-4 px-6 text-emerald-400">Compliant (No major liens / bankruptcy)</td>
+                            <td class="py-4 px-6">Public Company Registry</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-medium">Verified</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-4 px-6 font-semibold text-white">Ownership Structure</td>
+                            <td class="py-4 px-6">Authorized Signatory</td>
+                            <td class="py-4 px-6">Primary Shareholder Ledger Verified</td>
+                            <td class="py-4 px-6">Ministry of Commerce Directory</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-medium">Valid</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-4 px-6 font-semibold text-white">Regulatory & Risk</td>
+                            <td class="py-4 px-6">Customs & Safety Standing</td>
+                            <td class="py-4 px-6">Industrial Refrigerant Certified / HS Code Settled</td>
+                            <td class="py-4 px-6">Public Gazettes & Ministry Portals</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-sky-500/10 text-sky-400 text-xs font-medium">Compliant</span></td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/40">
+                            <td class="py-4 px-6 font-semibold text-white">Audit Trail & Logs</td>
+                            <td class="py-4 px-6">Judicial Asset Watchlist</td>
+                            <td class="py-4 px-6">Clearance Confirmed (Negative Check)</td>
+                            <td class="py-4 px-6">Legal Execution Announcement Portal</td>
+                            <td class="py-4 px-6"><span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-medium">Passed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lab Brand Section -->
+    <section class="py-16 border-t border-brand-border bg-slate-950/40">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-4">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Lab Brand & System Framework</span>
+            <h3 class="text-2xl font-bold text-white">YBC AI 99 System</h3>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-2xl mx-auto">
+                YBC AI 99 System คือแบรนด์และห้องปฏิบัติการพัฒนาระบบสถาปัตยกรรม AI ก่อตั้งขึ้นในปี 2023 โดย Yoddoy Polsimma เพื่อวิจัย ออกแบบ และวางโครงสร้างวิศวกรรมปัญญาประดิษฐ์ระดับองค์กร ภายใต้มาตรฐาน Model-Agnostic Architecture
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 border-t border-brand-border">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-8">
+            <div class="space-y-3">
+                <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Direct Engagement</span>
+                <h2 class="text-3xl font-extrabold text-white">Connect & Initiate Engagement</h2>
+                <p class="text-slate-400 text-sm">
+                    พร้อมให้คำปรึกษาและออกแบบสถาปัตยกรรม AI สำหรับภาคธุรกิจ ผ่านระบบสัญญาที่ปลอดภัย
+                </p>
+            </div>
+            <div class="p-8 rounded-2xl border border-slate-800 bg-brand-card space-y-6">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="mailto:yoddoy.plsimma@gmail.com" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-brand-blue hover:bg-blue-600 text-white font-semibold text-sm transition shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        yoddoy.plsimma@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/yoddoy-polsimma-078098423/" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition flex items-center justify-center gap-2">
+                        LinkedIn Profile
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500">
+                    * B2B Project Engagements are verified through Escrow / Secure Professional Platforms.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-900 text-center text-xs text-slate-600">
+        <p>&copy; 2026 Yoddoy Polsimma. All rights reserved. YBC AI 99 System.</p>
+    </footer>
+
+</body>
+</html>
+"""
+
+def build_site():
+    output_path = "index.html"
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(HTML_CONTENT)
+    print(f"[SUCCESS] Website generated successfully: {os.path.abspath(output_path)}")
+
+if __name__ == "__main__":
+    build_site()
